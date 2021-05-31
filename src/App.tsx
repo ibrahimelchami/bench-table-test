@@ -1,11 +1,4 @@
-import {
-  Table,
-  Row,
-  RowHeader,
-  Cell,
-  Background,
-  Header,
-} from "./components.js";
+import { Table, Row, RowHeader, Cell, Background, Header } from "./components";
 import { All } from "./Data/all";
 
 function App() {
