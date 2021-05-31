@@ -2,12 +2,30 @@ import { Table, Row, RowHeader, Cell, Background, Header } from "./components";
 import { All } from "./Data/all";
 
 function App() {
-  // Create our number formatter.
+  //Ledger items type definition
+  type LedgerItem = {
+    Date: string;
+    Ledger: string;
+    Amount: string;
+    Company: string;
+  };
+
+  //Complicated function I still don't fully understand to add values
+  const reducer = (accumulator: number, currentValue: LedgerItem) =>
+    accumulator + +currentValue.Amount;
+
+  const mathAmount = All.transactions.reduce(reducer, 0);
+
+  //Number formatter to make moneys
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
 
+  //Grab the keys for heading header row
+  const keys = Object.keys(All.transactions[0]);
+
+  //Create table
   const allLedgerItems = All.transactions.map((ledgerItem) => (
     <Row>
       <Cell>{ledgerItem.Date}</Cell>
@@ -17,20 +35,7 @@ function App() {
     </Row>
   ));
 
-  const keys = Object.keys(All.transactions[0]);
-
-  type LedgerItem = {
-    Date: string;
-    Ledger: string;
-    Amount: string;
-    Company: string;
-  };
-
-  const reducer = (accumulator: number, currentValue: LedgerItem) =>
-    accumulator + +currentValue.Amount;
-
-  const mathAmount = All.transactions.reduce(reducer, 0);
-
+  //Return table
   return (
     <Background>
       <Header>Bench Test</Header>
